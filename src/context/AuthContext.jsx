@@ -1,6 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { authService } from "../services/authService";
-import AuthContext from "./AuthContextValue";
+import AuthContextValue from "./AuthContextValue";
+
+const normalizeAccessValues = (values) => {
+  if (!values) return [];
+  const entries = Array.isArray(values) ? values : [values];
+  return entries
+    .map((value) => (typeof value === "string" ? value : value?.name))
+    .filter((value) => typeof value === "string" && value.trim() !== "");
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -9,37 +17,50 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const updateAuthState = useCallback((responseData) => {
-    const payload = responseData?.data ?? responseData;
-    const currentUser =
-      payload?.user ??
-      payload?.data?.user ??
-      (payload?.success ? payload.data : payload);
+    // 1. ទាញយក Root Payload (អាចជា responseData.data ឬ responseData)
+    const rootData = responseData?.data ?? responseData;
+    
+    // 2. ទាញយក User Object
+    const currentUser = rootData?.user ?? rootData?.data?.user;
 
-    if (
-      !currentUser ||
-      typeof currentUser !== "object" ||
-      currentUser.success === false
-    ) {
+    if (!currentUser || typeof currentUser !== "object") {
       setUser(null);
       setRoles([]);
       setPermissions([]);
       return null;
     }
 
-    const roleValues =
-      payload.roles ?? currentUser.roles ?? currentUser.role ?? [];
-    const permissionValues =
-      payload?.permissions ?? currentUser.permissions ?? [];
+    // 3. ទាញយក Roles (ទាញយកពី rootData.roles ដោយផ្ទាល់ -> ទទួលបាន ["Admin"])
+    const rawRoles = rootData?.roles ?? currentUser?.roles ?? [];
+    const extractedRoles = normalizeAccessValues(rawRoles);
+
+    // 4. ទាញយក Permissions (ទាញយកពី rootData.permissions ដោយផ្ទាល់ -> ទទួលបាន ["dashboard.view", "tasks.view", ...])
+    let rawPermissions = rootData?.permissions ?? currentUser?.permissions ?? [];
+
+    // Fallback ប្រសិនបើ permissions ទទេ ត្រូវទាញចេញពី Nested Roles
+    if (rawPermissions.length === 0 && Array.isArray(currentUser?.roles)) {
+      currentUser.roles.forEach((r) => {
+        if (Array.isArray(r.permissions)) {
+          rawPermissions = [...rawPermissions, ...r.permissions];
+        }
+      });
+    }
+
+    const extractedPermissions = normalizeAccessValues(rawPermissions);
+
+    // 5. កត់ត្រាចូល React State
     setUser(currentUser);
-    setRoles(Array.isArray(roleValues) ? roleValues : [roleValues]);
-    setPermissions(
-      Array.isArray(permissionValues) ? permissionValues : [permissionValues],
-    );
+    setRoles(extractedRoles); // State `roles` នឹងស្មើ ['Admin']
+    setPermissions([...new Set(extractedPermissions)]); // State `permissions` នឹងមាន array ពេញលេញ
+
     return currentUser;
   }, []);
 
   const fetchCurrentUser = useCallback(async () => {
-    const token = localStorage.getItem("access_token");
+    const token =
+      localStorage.getItem("access_token") ??
+      sessionStorage.getItem("access_token");
+
     if (!token) {
       setUser(null);
       setRoles([]);
@@ -53,7 +74,10 @@ export const AuthProvider = ({ children }) => {
       return updateAuthState(response);
     } catch (error) {
       console.error("Session verification failed:", error);
-      localStorage.removeItem("access_token");
+      if (error.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        sessionStorage.removeItem("access_token");
+      }
       setUser(null);
       setRoles([]);
       setPermissions([]);
@@ -64,14 +88,20 @@ export const AuthProvider = ({ children }) => {
   }, [updateAuthState]);
 
   useEffect(() => {
-    void Promise.resolve().then(fetchCurrentUser);
+    let isMounted = true;
+    fetchCurrentUser().finally(() => {
+      if (isMounted) setLoading(false);
+    });
+    return () => {
+      isMounted = false;
+    };
   }, [fetchCurrentUser]);
 
   const loginStateUpdate = useCallback(
     (responseData) => {
       updateAuthState(responseData);
     },
-    [updateAuthState],
+    [updateAuthState]
   );
 
   const logout = async () => {
@@ -81,6 +111,7 @@ export const AuthProvider = ({ children }) => {
       console.warn("Logout error:", err);
     } finally {
       localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access_token");
       setUser(null);
       setRoles([]);
       setPermissions([]);
@@ -89,7 +120,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
+    <AuthContextValue.Provider
       value={{
         user,
         roles,
@@ -101,6 +132,6 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AuthContextValue.Provider>
   );
 };

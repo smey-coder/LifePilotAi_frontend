@@ -1,15 +1,27 @@
 import api from "./api";
 
+const saveToken = (token, rememberMe = false) => {
+  if (!token) return;
+
+  if (rememberMe) {
+    localStorage.setItem("access_token", token);
+    sessionStorage.removeItem("access_token");
+    return;
+  }
+
+  sessionStorage.setItem("access_token", token);
+  localStorage.removeItem("access_token");
+};
+
 export const authService = {
   // Register User
   register: async (userData) => {
-    // userData: { name, email, password, password_confirmation }
     const response = await api.post("/register", userData);
     return response.data;
   },
 
   // Login User
-  login: async (credentials) => {
+  login: async (credentials, rememberMe = false) => {
     const response = await api.post("/login", credentials);
     const token =
       response.data?.token ??
@@ -17,12 +29,12 @@ export const authService = {
       response.data?.access_token ??
       response.data?.data?.access_token;
     if (token) {
-      localStorage.setItem("access_token", token);
+      saveToken(token, rememberMe);
     }
     return response.data;
   },
 
-  // Get Current Dashboard / User Data
+  // Get Current Dashboard / User Data (កែប្រែ Endpoint ទៅជា /dashboard-user)
   getDashboardUser: async () => {
     const response = await api.get("/dashboard");
     return response.data;
@@ -34,6 +46,9 @@ export const authService = {
       await api.post("/logout");
     } finally {
       localStorage.removeItem("access_token");
+      localStorage.removeItem("auth_token");
+      sessionStorage.removeItem("access_token");
+      localStorage.removeItem("user_info");
     }
   },
 
@@ -45,7 +60,6 @@ export const authService = {
 
   // Reset Password
   resetPassword: async (payload) => {
-    // payload: { token, email, password, password_confirmation }
     const response = await api.post("/reset-password", payload);
     return response.data;
   },

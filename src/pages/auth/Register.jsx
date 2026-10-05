@@ -173,7 +173,7 @@ const Register = () => {
               </div>
               <div className="flex items-center gap-2.5 text-xs text-indigo-100/90 bg-white/5 backdrop-blur-md p-2.5 rounded-xl border border-white/10">
                 <ShieldCheck size={16} className="text-indigo-300 shrink-0" />
-                <span>សុវត្ថិភាពទិន្នន័យកម្រិតខ្ពស់ជាមួយ Laravel Sanctum</span>
+                <span>សុវត្ថិភាពទិន្នន័យកម្រិតខ្ពស់ជាមួយ System</span>
               </div>
             </div>
           </div>

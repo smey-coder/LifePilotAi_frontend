@@ -1,45 +1,75 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../services/authService";
-import { Mail, Lock, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import useAuth from "../../hooks/useAuth";
+import { Mail, Lock, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import useNotification from "../../hooks/useNotification";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { fetchCurrentUser } = useAuth();
+  const { showSuccess, showError } = useNotification();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
+    remember: false,
   });
 
   const [fieldErrors, setFieldErrors] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (fieldErrors[e.target.name]) {
-      setFieldErrors({ ...fieldErrors, [e.target.name]: null });
+    const { name, type, value, checked } = e.target;
+    const nextValue = type === "checkbox" ? checked : value;
+
+    setFormData((prev) => ({ ...prev, [name]: nextValue }));
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: null }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
     setFieldErrors({});
     setLoading(true);
 
     try {
-      const response = await authService.login(formData);
-      if (response.access_token) {
-        navigate('/dashboard');
+      const payload = {
+        email: formData.email,
+        password: formData.password,
+      };
+
+      const response = await authService.login(payload, formData.remember);
+
+      const token =
+        response?.access_token ??
+        response?.token ??
+        response?.data?.access_token ??
+        response?.data?.token;
+
+      if (token) {
+        const user = await fetchCurrentUser();
+        if (user) {
+          const from = location.state?.from?.pathname || "/dashboard";
+          showSuccess("ចូលប្រព័ន្ធដោយជោគជ័យ!");
+          navigate(from, { replace: true });
+        } else {
+          showError("បរាជ័យក្នុងការទាញយកទិន្នន័យអ្នកប្រើប្រាស់");
+        }
+      } else {
+        showError("មិនអាចទទួលបាន Token ចូលប្រព័ន្ធឡើយ");
       }
     } catch (err) {
       if (err.response?.status === 422) {
         setFieldErrors(err.response.data.errors || {});
       } else {
-        setErrorMessage(
-          err.response?.data?.message || 'អុីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវឡើយ'
+        showError(
+          err.response?.data?.message || "អុីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវឡើយ",
+          "error"
         );
       }
     } finally {
@@ -50,10 +80,8 @@ const Login = () => {
   return (
     <div className="min-h-screen w-full bg-slate-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-4xl w-full bg-white rounded-3xl shadow-2xl shadow-indigo-950/10 border border-slate-100 overflow-hidden grid grid-cols-1 md:grid-cols-2 animate-slide-up">
-        
         {/* 1. LEFT SIDE: BRANDING, IMAGE & ANIMATION */}
         <div className="relative bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 p-8 sm:p-10 flex flex-col justify-between text-white overflow-hidden hidden md:flex">
-          
           {/* Background Ambient Glow & Overlay */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-purple-500/20 rounded-full blur-2xl pointer-events-none" />
@@ -108,7 +136,6 @@ const Login = () => {
 
         {/* 2. RIGHT SIDE: FORM CONTENT */}
         <div className="p-8 sm:p-10 flex flex-col justify-center bg-white">
-          
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -200,6 +227,19 @@ const Login = () => {
               )}
             </div>
 
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2 cursor-pointer select-none text-slate-600 hover:text-slate-800 transition">
+                <input
+                  type="checkbox"
+                  name="remember"
+                  checked={formData.remember}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 focus:ring-offset-0 cursor-pointer accent-indigo-600"
+                />
+                <span>ចងចាំខ្ញុំ (Remember me)</span>
+              </label>
+            </div>
+
             {/* Submit Button */}
             <button
               type="submit"
@@ -219,7 +259,7 @@ const Login = () => {
 
           {/* Footer Register Link */}
           <p className="mt-8 text-center text-sm text-slate-600">
-            មិនទាន់មានគណនី?{' '}
+            មិនទាន់មានគណនី?{" "}
             <Link
               to="/register"
               className="text-indigo-600 font-bold hover:text-indigo-700 hover:underline transition ml-1"
@@ -227,9 +267,7 @@ const Login = () => {
               ចុះឈ្មោះនៅទីនេះ
             </Link>
           </p>
-
         </div>
-
       </div>
     </div>
   );
