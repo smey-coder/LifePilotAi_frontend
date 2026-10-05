@@ -22,8 +22,8 @@ import RoleList from "../pages/roles/RoleList";
 import UserList from "../pages/users/UserList";
 import TaskList from "../pages/tasks/TaskList";
 import NoteList from "../pages/notes/NoteList";
-// import ReminderList from "../pages/reminders/ReminderList";
-// import GoalList from "../pages/goals/GoalList";
+import ReminderList from "../pages/reminders/ReminderList";
+import GoalList from "../pages/goals/GoalList";
 // import HabitList from "../pages/habits/HabitList";
 // import Profile from "../pages/profile/Profile";
 
@@ -77,7 +77,9 @@ const AppRoutes = () => {
 
           <Route path="/tasks" element={<TaskList />} />
           <Route path="/notes" element={<NoteList />} />
-        
+          <Route path="/reminders" element={<ReminderList />} />
+          <Route path="/goals" element={<GoalList />} />
+          
           {/* Productivity Modules */}
           
           {/* <Route path="/notes" element={<NoteList />} />
