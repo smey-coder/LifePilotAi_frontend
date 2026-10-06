@@ -1,18 +1,17 @@
-import React from 'react';
-import { AlertTriangle, X, Trash2 } from 'lucide-react';
+import React from "react";
+import { AlertTriangle, X, Trash2 } from "lucide-react";
 
 const DeleteRoleModal = ({ isOpen, onClose, onConfirm, roleName, loading }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-md overflow-hidden bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl animate-scale-up">
-        
+      <div className="relative w-full max-w-md overflow-hidden bg-white border border-slate-200 rounded-3xl shadow-2xl animate-scale-up dark:bg-slate-900 dark:border-slate-800">
         {/* Close Button */}
         <button
           onClick={onClose}
           disabled={loading}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition duration-200 disabled:opacity-50"
+          className="absolute top-4 right-4 p-2 text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-200 transition duration-200 disabled:opacity-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
         >
           <X size={18} />
         </button>
@@ -24,12 +23,17 @@ const DeleteRoleModal = ({ isOpen, onClose, onConfirm, roleName, loading }) => {
             <AlertTriangle size={32} />
           </div>
 
-          <h3 className="text-lg font-bold text-white mb-2">
+          <h3 className="text-lg font-bold text-slate-900 mb-2 dark:text-white">
             បញ្ជាក់ការលុប Role
           </h3>
-          
-          <p className="text-xs text-slate-400 leading-relaxed mb-6">
-            តើអ្នកពិតជាចង់លុប Role <span className="font-bold text-rose-400">"{roleName || 'នេះ'}"</span> ចេញពីប្រព័ន្ធមែនទេ? សកម្មភាពនេះនឹងផ្តាច់ Permissions ទាំងអស់ ហើយមិនអាចត្រឡប់ក្រោយវិញបានឡើយ។
+
+          <p className="text-xs text-slate-600 leading-relaxed mb-6 dark:text-slate-400">
+            តើអ្នកពិតជាចង់លុប Role{" "}
+            <span className="font-bold text-rose-500">
+              "{roleName || "នេះ"}"
+            </span>{" "}
+            ចេញពីប្រព័ន្ធមែនទេ? សកម្មភាពនេះនឹងផ្តាច់ Permissions ទាំងអស់
+            ហើយមិនអាចត្រឡប់ក្រោយវិញបានឡើយ។
           </p>
 
           {/* Action Buttons */}
@@ -38,11 +42,11 @@ const DeleteRoleModal = ({ isOpen, onClose, onConfirm, roleName, loading }) => {
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="w-1/2 py-2.5 text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700/80 rounded-xl transition duration-200 disabled:opacity-50"
+              className="w-1/2 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition duration-200 disabled:opacity-50 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700/80"
             >
               បោះបង់
             </button>
-            
+
             <button
               type="button"
               onClick={onConfirm}
@@ -54,7 +58,7 @@ const DeleteRoleModal = ({ isOpen, onClose, onConfirm, roleName, loading }) => {
               ) : (
                 <Trash2 size={15} />
               )}
-              <span>{loading ? 'កំពុងលុប...' : 'លុបចេញ'}</span>
+              <span>{loading ? "កំពុងលុប..." : "លុបចេញ"}</span>
             </button>
           </div>
         </div>

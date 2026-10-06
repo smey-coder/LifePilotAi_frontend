@@ -1,21 +1,21 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
 import Loader from "../../components/common/Loader";
-import UserDashboard from "./UserDashboard";
-import AdminDashboard from "./AdminDashboard";
+import UserSettings from "./UserSettings";
+import AdminSettings from "./AdminSettings";
 
-const Dashboard = () => {
+const Setting = () => {
   const { roles = [], loading } = useAuth();
 
   if (loading) {
-    return <Loader fullScreen message="Loading dashboard..." />;
+    return <Loader fullScreen message="Loading settings..." />;
   }
 
   const isAdmin = roles.some(
     (role) => typeof role === "string" && role.toLowerCase() === "admin",
   );
 
-  return isAdmin ? <AdminDashboard /> : <UserDashboard />;
+  return isAdmin ? <AdminSettings /> : <UserSettings />;
 };
 
-export default Dashboard;
+export default Setting;

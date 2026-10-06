@@ -10,8 +10,8 @@ const MainLayout = () => {
   const { user, roles = [], permissions = [] } = useAuth();
 
   return (
-    <div className="min-h-screen bg-slate-50 flex overflow-hidden font-sans">
-      {/* 1. Sidebar Component with RBAC */}
+    <div className="min-h-screen bg-slate-100 text-slate-900 flex font-sans antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+      {/* 1. Sidebar (Fixed 256px / w-64 on Desktop) */}
       <Sidebar
         roles={roles}
         permissions={permissions}
@@ -19,21 +19,19 @@ const MainLayout = () => {
         closeSidebar={() => setSidebarOpen(false)}
       />
 
-      {/* 2. Main Content Wrapper */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Navbar */}
+      {/* 2. Content Area - Add lg:pl-64 to clear the fixed sidebar space */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen lg:pl-64 transition-all duration-300">
+        {/* Fixed Navbar */}
         <Navbar
           user={user}
           roles={roles}
           permissions={permissions}
-          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          toggleSidebar={() => setSidebarOpen((prev) => !prev)}
         />
 
-        {/* Main Body (Page Views via React Router) */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto">
-            <Outlet />
-          </div>
+        {/* Page Content View */}
+        <main className="flex-1 pt-20 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto">
+          <Outlet />
         </main>
 
         {/* Footer */}

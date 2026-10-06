@@ -202,13 +202,13 @@ const GoalList = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-black tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 dark:text-white">
             <div className="p-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl shadow-inner">
               <Target size={24} />
             </div>
             <span>Goal Tracking System</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1.5 flex items-center gap-1.5">
+          <p className="text-xs text-slate-500 mt-1.5 flex items-center gap-1.5 dark:text-slate-400">
             <span>សរុបគោលដៅទាំងអស់៖</span>
             <span className="font-mono font-bold text-emerald-400 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
               {totalGoals}
@@ -231,19 +231,19 @@ const GoalList = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl backdrop-blur-md shadow-lg">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-100 border border-slate-200 rounded-2xl backdrop-blur-md shadow-lg dark:bg-slate-900/60 dark:border-slate-800/80">
         {/* Search Input */}
         <div className="relative flex-1 w-full max-w-md">
           <Search
             size={16}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="ស្វែងរកគោលដៅ..."
-            className="w-full pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 bg-slate-950/60 border border-slate-800 rounded-xl focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 transition-all duration-200"
+            className="w-full pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-500 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 transition-all duration-200 dark:text-white dark:placeholder-slate-500 dark:bg-slate-950/60 dark:border-slate-800"
           />
         </div>
 
@@ -255,7 +255,7 @@ const GoalList = () => {
               setStatusFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3.5 py-2 text-xs text-slate-300 bg-slate-950/60 border border-slate-800 rounded-xl focus:outline-none focus:border-emerald-500/60 transition-all duration-200 cursor-pointer"
+            className="px-3.5 py-2 text-xs text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500/60 transition-all duration-200 cursor-pointer dark:text-slate-300 dark:bg-slate-950/60 dark:border-slate-800"
           >
             <option value="">Status ទាំងអស់</option>
             <option value="on_track">On Track</option>
@@ -265,7 +265,7 @@ const GoalList = () => {
 
           <button
             onClick={() => fetchGoals(currentPage, searchQuery, statusFilter)}
-            className="p-2.5 text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 rounded-xl border border-slate-700/60 hover:border-slate-600 transition-all duration-200 shrink-0 active:scale-95"
+            className="p-2.5 text-slate-600 hover:text-slate-900 bg-slate-200 hover:bg-slate-300 rounded-xl border border-slate-200 transition-all duration-200 shrink-0 active:scale-95 dark:text-slate-400 dark:hover:text-white dark:bg-slate-800/60 dark:hover:bg-slate-800 dark:border-slate-700/60"
             title="Refresh Data"
           >
             <RefreshCw
@@ -284,33 +284,33 @@ const GoalList = () => {
             {Array.from({ length: 4 }).map((_, idx) => (
               <div
                 key={idx}
-                className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4 animate-pulse shadow-md"
+                className="bg-slate-100 border border-slate-200 rounded-3xl p-6 space-y-4 animate-pulse shadow-md dark:bg-slate-900/60 dark:border-slate-800"
               >
                 <div className="flex justify-between items-start">
                   <div className="space-y-2 flex-1">
-                    <div className="h-4 w-48 bg-slate-800 rounded-md"></div>
-                    <div className="h-3 w-3/4 bg-slate-800/60 rounded-md"></div>
+                    <div className="h-4 w-48 bg-slate-200 rounded-md dark:bg-slate-800"></div>
+                    <div className="h-3 w-3/4 bg-slate-200/80 rounded-md dark:bg-slate-800/60"></div>
                   </div>
-                  <div className="h-6 w-20 bg-slate-800 rounded-lg"></div>
+                  <div className="h-6 w-20 bg-slate-200 rounded-lg dark:bg-slate-800"></div>
                 </div>
                 <div className="space-y-2">
-                  <div className="h-3 w-full bg-slate-800/40 rounded-full"></div>
-                  <div className="h-2 w-full bg-slate-800 rounded-full"></div>
+                  <div className="h-3 w-full bg-slate-200/70 rounded-full dark:bg-slate-800/40"></div>
+                  <div className="h-2 w-full bg-slate-200 rounded-full dark:bg-slate-800"></div>
                 </div>
-                <div className="h-20 bg-slate-950/40 rounded-2xl border border-slate-800/50"></div>
+                <div className="h-20 bg-slate-200/80 rounded-2xl border border-slate-200 dark:bg-slate-950/40 dark:border-slate-800/50"></div>
               </div>
             ))}
           </div>
         ) : goals.length === 0 ? (
           /* Empty State */
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-12 text-center text-slate-500 backdrop-blur-md shadow-xl">
-            <div className="w-16 h-16 bg-slate-800/50 border border-slate-700/50 rounded-2xl flex items-center justify-center mx-auto mb-3 text-slate-400">
+          <div className="bg-slate-100 border border-slate-200 rounded-3xl p-12 text-center text-slate-500 backdrop-blur-md shadow-xl dark:bg-slate-900/60 dark:border-slate-800/80 dark:text-slate-500">
+            <div className="w-16 h-16 bg-slate-200 border border-slate-300 rounded-2xl flex items-center justify-center mx-auto mb-3 text-slate-500 dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-400">
               <Sparkles size={28} />
             </div>
-            <h3 className="text-sm font-bold text-slate-300">
+            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">
               មិនមានទិន្នន័យគោលដៅឡើយ
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 mt-1 dark:text-slate-500">
               សូមចុច "+ បង្កើតគោលដៅថ្មី" ដើម្បីចាប់ផ្តើមតាមដាន Goal
               ដំបូងរបស់អ្នក
             </p>
@@ -340,21 +340,23 @@ const GoalList = () => {
 
         {/* Pagination Controls */}
         {lastPage > 1 && (
-          <div className="flex items-center justify-between p-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl backdrop-blur-md shadow-lg">
-            <p className="text-xs text-slate-400">
+          <div className="flex items-center justify-between p-4 bg-slate-100 border border-slate-200 rounded-2xl backdrop-blur-md shadow-lg dark:bg-slate-900/60 dark:border-slate-800/80">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               ទំព័រទី{" "}
-              <span className="font-bold font-mono text-white">
+              <span className="font-bold font-mono text-slate-900 dark:text-white">
                 {currentPage}
               </span>{" "}
               នៃ{" "}
-              <span className="font-bold font-mono text-white">{lastPage}</span>
+              <span className="font-bold font-mono text-slate-900 dark:text-white">
+                {lastPage}
+              </span>
             </p>
 
             <div className="flex items-center gap-2">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className="p-2 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800 disabled:opacity-30 disabled:hover:text-slate-400 rounded-xl transition-all duration-200 active:scale-95"
+                className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 disabled:opacity-30 disabled:hover:text-slate-600 rounded-xl transition-all duration-200 active:scale-95 dark:text-slate-400 dark:hover:text-white dark:bg-slate-950/80 dark:border-slate-800"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -362,7 +364,7 @@ const GoalList = () => {
               <button
                 disabled={currentPage === lastPage}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className="p-2 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800 disabled:opacity-30 disabled:hover:text-slate-400 rounded-xl transition-all duration-200 active:scale-95"
+                className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 disabled:opacity-30 disabled:hover:text-slate-600 rounded-xl transition-all duration-200 active:scale-95 dark:text-slate-400 dark:hover:text-white dark:bg-slate-950/80 dark:border-slate-800"
               >
                 <ChevronRight size={16} />
               </button>

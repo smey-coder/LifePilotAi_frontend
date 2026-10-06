@@ -24,7 +24,9 @@ import TaskList from "../pages/tasks/TaskList";
 import NoteList from "../pages/notes/NoteList";
 import ReminderList from "../pages/reminders/ReminderList";
 import GoalList from "../pages/goals/GoalList";
-// import HabitList from "../pages/habits/HabitList";
+import HabitList from "../pages/habits/HabitList";
+import Settings from "../pages/settings/settings";
+// import HabitLog from "../pages/habits/HabitLogs";
 // import Profile from "../pages/profile/Profile";
 
 // AI Module Pages
@@ -69,6 +71,8 @@ const AppRoutes = () => {
           
           {/* Main Dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/user/dashboard" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/admin/dashboard" element={<Navigate to="/dashboard" replace />} />
 
           {/* Core Feature Pages */}
           <Route path="/admin/users" element={<UserList />} />
@@ -79,13 +83,12 @@ const AppRoutes = () => {
           <Route path="/notes" element={<NoteList />} />
           <Route path="/reminders" element={<ReminderList />} />
           <Route path="/goals" element={<GoalList />} />
-          
-          {/* Productivity Modules */}
-          
-          {/* <Route path="/notes" element={<NoteList />} />
-          <Route path="/reminders" element={<ReminderList />} />
-          <Route path="/goals" element={<GoalList />} />
-          <Route path="/habits" element={<HabitList />} />  */}
+          <Route path="/habits" element={<HabitList />} />
+
+          //Settings Page
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/user/settings" element={<Navigate to="/settings" replace />} />
+          <Route path="/admin/settings" element={<Navigate to="/settings" replace />} />
 
           {/* AI Module Pages */}
           {/* <Route path="/ai-assistant" element={<AIAssistant />} />

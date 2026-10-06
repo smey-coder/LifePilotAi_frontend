@@ -213,11 +213,11 @@ const ReminderList = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-black tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 dark:text-white">
             <Bell className="text-emerald-400" size={28} />
             Intelligent Reminders
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1 dark:text-slate-400">
             សរុបការរំលឹកទាំងអស់៖{" "}
             <span className="font-bold text-emerald-400">{totalReminders}</span>
           </p>
@@ -238,7 +238,7 @@ const ReminderList = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-md">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-100 border border-slate-200 rounded-2xl backdrop-blur-md dark:bg-slate-900/60 dark:border-slate-800">
         <div className="relative flex-1 w-full max-w-md">
           <Search
             size={16}
@@ -249,7 +249,7 @@ const ReminderList = () => {
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="ស្វែងរកការរំលឹក..."
-            className="w-full pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 bg-slate-950/60 border border-slate-800 rounded-xl focus:outline-none focus:border-emerald-500 transition"
+            className="w-full pl-10 pr-4 py-2 text-xs text-slate-900 placeholder-slate-500 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500 transition dark:text-white dark:placeholder-slate-500 dark:bg-slate-950/60 dark:border-slate-800"
           />
         </div>
 
@@ -260,7 +260,7 @@ const ReminderList = () => {
               setChannelFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 text-xs text-slate-300 bg-slate-950/60 border border-slate-800 rounded-xl focus:outline-none focus:border-emerald-500 transition"
+            className="px-3 py-2 text-xs text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500 transition dark:text-slate-300 dark:bg-slate-950/60 dark:border-slate-800"
           >
             <option value="">Channel ទាំងអស់</option>
             <option value="browser">Browser</option>
@@ -272,7 +272,7 @@ const ReminderList = () => {
             onClick={() =>
               fetchReminders(currentPage, searchQuery, channelFilter)
             }
-            className="p-2.5 text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 rounded-xl border border-slate-800 transition shrink-0"
+            className="p-2.5 text-slate-600 hover:text-slate-900 bg-slate-200 hover:bg-slate-300 rounded-xl border border-slate-200 transition shrink-0 dark:text-slate-400 dark:hover:text-white dark:bg-slate-800/60 dark:hover:bg-slate-800 dark:border-slate-800"
           >
             <RefreshCw
               size={16}
@@ -283,11 +283,11 @@ const ReminderList = () => {
       </div>
 
       {/* Reminders Table */}
-      <div className="overflow-hidden bg-slate-900/80 border border-slate-800 rounded-3xl shadow-xl backdrop-blur-md">
+      <div className="overflow-hidden bg-white border border-slate-200 rounded-3xl shadow-xl backdrop-blur-md dark:bg-slate-900/80 dark:border-slate-800">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/40 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold text-slate-600 uppercase tracking-wider dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-400">
                 <th className="py-4 px-6">ចំណងជើងការរំលឹក</th>
                 <th className="py-4 px-6">ម៉ោងរំលឹក (Remind At)</th>
                 <th className="py-4 px-6">Frequency</th>
@@ -296,33 +296,36 @@ const ReminderList = () => {
                 <th className="py-4 px-6 text-right">សកម្មភាព</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-xs">
+            <tbody className="divide-y divide-slate-200/80 text-xs dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 5 }).map((_, idx) => (
                   <tr key={idx} className="animate-pulse">
                     <td className="py-4 px-6">
-                      <div className="h-4 w-48 bg-slate-800 rounded"></div>
+                      <div className="h-4 w-48 bg-slate-200 dark:bg-slate-800 rounded"></div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="h-4 w-28 bg-slate-800 rounded"></div>
+                      <div className="h-4 w-28 bg-slate-200 dark:bg-slate-800 rounded"></div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="h-4 w-16 bg-slate-800 rounded"></div>
+                      <div className="h-4 w-16 bg-slate-200 dark:bg-slate-800 rounded"></div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="h-4 w-20 bg-slate-800 rounded"></div>
+                      <div className="h-4 w-20 bg-slate-200 dark:bg-slate-800 rounded"></div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="h-4 w-16 bg-slate-800 rounded"></div>
+                      <div className="h-4 w-16 bg-slate-200 dark:bg-slate-800 rounded"></div>
                     </td>
                     <td className="py-4 px-6 text-right">
-                      <div className="h-4 w-16 bg-slate-800 rounded ml-auto"></div>
+                      <div className="h-4 w-16 bg-slate-200 dark:bg-slate-800 rounded ml-auto"></div>
                     </td>
                   </tr>
                 ))
               ) : reminders.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="py-12 text-center text-slate-500">
+                  <td
+                    colSpan="6"
+                    className="py-12 text-center text-slate-500 dark:text-slate-500"
+                  >
                     <Bell size={40} className="mx-auto mb-2 text-slate-600" />
                     <span>មិនមានទិន្នន័យការរំលឹកឡើយ</span>
                   </td>
@@ -336,22 +339,22 @@ const ReminderList = () => {
                     : "Active";
                   const statusClass = `px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border rounded-lg transition ${
                     reminder.is_triggered
-                      ? "bg-slate-800/80 text-slate-500 border-slate-700"
-                      : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                      ? "bg-slate-200 text-slate-600 border-slate-300 dark:bg-slate-800/80 dark:text-slate-500 dark:border-slate-700"
+                      : "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20"
                   }`;
 
                   return (
                     <tr
                       key={reminder.id}
-                      className="hover:bg-slate-800/40 transition duration-150 group"
+                      className="hover:bg-slate-100 transition duration-150 group dark:hover:bg-slate-800/40"
                     >
                       <td className="py-4 px-6">
-                        <div className="font-bold text-white">
+                        <div className="font-bold text-slate-900 dark:text-white">
                           {reminder.title}
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-slate-300 font-mono text-[11px]">
+                      <td className="py-4 px-6 text-slate-600 font-mono text-[11px] dark:text-slate-300">
                         <div className="flex items-center gap-1.5">
                           <Calendar size={13} className="text-emerald-400" />
                           <span>
@@ -361,7 +364,7 @@ const ReminderList = () => {
                       </td>
 
                       <td className="py-4 px-6">
-                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700 rounded-md">
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200 rounded-md dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">
                           {reminder.frequency}
                         </span>
                       </td>
@@ -396,7 +399,7 @@ const ReminderList = () => {
                                 setSelectedReminder(reminder);
                                 setIsModalOpen(true);
                               }}
-                              className="p-2 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 rounded-xl transition"
+                              className="p-2 text-slate-600 hover:text-emerald-500 hover:bg-slate-100 rounded-xl transition dark:text-slate-400 dark:hover:text-emerald-400 dark:hover:bg-slate-800"
                               title="កែប្រែ"
                             >
                               <Edit3 size={15} />
@@ -408,7 +411,7 @@ const ReminderList = () => {
                                 setSelectedReminder(reminder);
                                 setIsDeleteOpen(true);
                               }}
-                              className="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-xl transition"
+                              className="p-2 text-slate-600 hover:text-rose-500 hover:bg-slate-100 rounded-xl transition dark:text-slate-400 dark:hover:text-rose-400 dark:hover:bg-slate-800"
                               title="លុប"
                             >
                               <Trash2 size={15} />
@@ -426,24 +429,29 @@ const ReminderList = () => {
 
         {/* Pagination Footer */}
         {lastPage > 1 && (
-          <div className="flex items-center justify-between p-4 border-t border-slate-800 bg-slate-950/30">
-            <p className="text-xs text-slate-400">
+          <div className="flex items-center justify-between p-4 border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/30">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               ទំព័រទី{" "}
-              <span className="font-bold text-white">{currentPage}</span> នៃ{" "}
-              <span className="font-bold text-white">{lastPage}</span>
+              <span className="font-bold text-slate-900 dark:text-white">
+                {currentPage}
+              </span>{" "}
+              នៃ{" "}
+              <span className="font-bold text-slate-900 dark:text-white">
+                {lastPage}
+              </span>
             </p>
             <div className="flex items-center gap-2">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className="p-2 text-slate-400 hover:text-white bg-slate-900 border border-slate-800 disabled:opacity-40 rounded-xl transition"
+                className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 disabled:opacity-40 rounded-xl transition dark:text-slate-400 dark:hover:text-white dark:bg-slate-900 dark:border-slate-800"
               >
                 <ChevronLeft size={16} />
               </button>
               <button
                 disabled={currentPage === lastPage}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className="p-2 text-slate-400 hover:text-white bg-slate-900 border border-slate-800 disabled:opacity-40 rounded-xl transition"
+                className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 disabled:opacity-40 rounded-xl transition dark:text-slate-400 dark:hover:text-white dark:bg-slate-900 dark:border-slate-800"
               >
                 <ChevronRight size={16} />
               </button>

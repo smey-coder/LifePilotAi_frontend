@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* 1. កំណត់ Custom Font Families សម្រាប់ Tailwind v4 */
 @theme {
   --font-sans: "Plus Jakarta Sans", "Kantumruy Pro", sans-serif;
@@ -8,15 +10,84 @@
 
 /* 2. Base Style សម្រាប់កំណត់ Font និង Line-height ឱ្យសមស្របជាមួយអក្សរខ្មែរ */
 @layer base {
+  html {
+    background-color: #f8fafc;
+    color: #0f172a;
+  }
+
+  html.dark {
+    background-color: #020817;
+    color: #e2e8f0;
+  }
+
   body {
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #f8fafc;
+    color: #0f172a;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  html.dark body {
+    background-color: #020817;
+    color: #e2e8f0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     line-height: 1.35;
+  }
+
+  .dark .text-black,
+  .dark .text-slate-900,
+  .dark .text-slate-800,
+  .dark .text-slate-700,
+  .dark .text-slate-600,
+  .dark .text-slate-500,
+  .dark .text-slate-400,
+  .dark .text-slate-300,
+  .dark .text-white {
+    color: #f8fafc;
+  }
+
+  .dark .text-slate-500 {
+    color: #cbd5e1;
+  }
+
+  .dark .text-slate-400 {
+    color: #e2e8f0;
+  }
+
+  .dark .bg-white,
+  .dark .bg-slate-100,
+  .dark .bg-slate-200,
+  .dark .bg-slate-900,
+  .dark .bg-slate-900\/60,
+  .dark .bg-slate-900\/80,
+  .dark .bg-slate-950,
+  .dark .bg-slate-950\/60,
+  .dark .bg-slate-800,
+  .dark .bg-slate-800\/60,
+  .dark .bg-slate-800\/50 {
+    background-color: rgba(15, 23, 42, 0.82);
+  }
+
+  .dark .border-slate-200,
+  .dark .border-slate-800,
+  .dark .border-slate-700,
+  .dark .border-slate-800\/80,
+  .dark .border-slate-800\/60,
+  .dark .border-slate-700\/60 {
+    border-color: rgba(51, 65, 85, 0.9);
+  }
+
+  .dark [class*="placeholder-slate-"]::placeholder {
+    color: #94a3b8;
   }
 }
 
