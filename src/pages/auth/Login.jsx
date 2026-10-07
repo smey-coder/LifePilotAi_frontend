@@ -142,7 +142,7 @@ const Login = () => {
               ចូលប្រើប្រាស់ប្រព័ន្ធ
             </h2>
             <p className="text-sm text-slate-500 mt-2">
-              សូមបញ្ចូលអុីមែល និងពាក្យសម្ងាត់ដើម្បីចូលទៅកាន់ LifePilot AI
+              សូមបញ្ចូលEmail និងPassword ដើម្បីចូលទៅកាន់ LifePilot AI
             </p>
           </div>
 
@@ -170,7 +170,7 @@ const Login = () => {
             {/* Email Input */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
-                អុីមែល
+                Email
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -197,7 +197,7 @@ const Login = () => {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  ពាក្យសម្ងាត់
+                  Password
                 </label>
                 <Link
                   to="/forgot-password"
