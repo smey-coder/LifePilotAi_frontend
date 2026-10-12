@@ -140,8 +140,15 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           {/* Logo Brand Header */}
           <div className="h-16 px-6 flex items-center justify-between border-b border-slate-200/80 shrink-0 dark:border-slate-800/80">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/20">
+              {/* <div className="w-9 h-9 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/20">
                 LP
+              </div> */}
+              <div className="w-9 h-9 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30 border border-indigo-400/20 overflow-hidden">
+                <img
+                  src="/public/logo/logo.png"
+                  alt="LifePilot Logo"
+                  className="w-full h-full object-contain p-1"
+                />
               </div>
               <span className="text-base font-black tracking-wider text-slate-900 uppercase dark:text-white">
                 LifePilot <span className="text-indigo-400">AI</span>

@@ -30,7 +30,7 @@ import Settings from "../pages/settings/settings";
 // import Profile from "../pages/profile/Profile";
 
 // AI Module Pages
-// import AIAssistant from "../pages/ai/AIAssistant";
+import AIAssistant from "../components/ai/index";
 // import NoteSummary from "../pages/ai/NoteSummary";
 // import StudyPlanner from "../pages/ai/StudyPlanner";
 
@@ -90,10 +90,11 @@ const AppRoutes = () => {
           <Route path="/user/settings" element={<Navigate to="/settings" replace />} />
           <Route path="/admin/settings" element={<Navigate to="/settings" replace />} />
 
+
           {/* AI Module Pages */}
-          {/* <Route path="/ai-assistant" element={<AIAssistant />} />
-          <Route path="/ai/summarize-notes" element={<NoteSummary />} />
-          <Route path="/ai/study-planner" element={<StudyPlanner />} /> */}
+          <Route path="/ai-assistant" element={<AIAssistant />} />
+          {/* <Route path="/ai/summarize-notes" element={<NoteSummary />} /> */}
+          {/* <Route path="/ai/study-planner" element={<StudyPlanner />} /> */}
 
           {/* Profile Management */}
           {/* <Route path="/profile" element={<Profile />} /> */}

@@ -41,7 +41,7 @@ const HabitList = () => {
     ...getAccessNames(user?.role),
   ].map((role) => role.replace(/[_-]+/g, " "));
   const isAdmin = userRoles.some((role) =>
-    ["admin", "super admin", "superadmin"].includes(role),
+    ["admin", "super admin", "superadmin", "user"].includes(role),
   );
   const userPermissions = [
     ...getAccessNames(permissions),
