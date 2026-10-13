@@ -172,7 +172,7 @@ const NotesSummary = () => {
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="បិទភ្ជាប់ (Paste) អត្ថបទវែងៗ ឯកសារ ឬកំណត់ត្រាដែលអ្នកចต้องการឱ្យ AI សង្ខេបនៅទីនេះ..."
+              placeholder="បិទភ្ជាប់ (Paste) អត្ថបទវែងៗ ឯកសារ ឬកំណត់ត្រាដែលអ្នកឱ្យ AI សង្ខេបនៅទីនេះ..."
               className="flex-1 w-full p-4 text-xs bg-slate-50/80 border border-slate-200/80 rounded-2xl focus:outline-none focus:border-amber-500 focus:bg-white transition-all duration-200 dark:bg-slate-950/60 dark:border-slate-800 dark:text-white placeholder-slate-400 resize-none custom-scrollbar"
               required
             />
