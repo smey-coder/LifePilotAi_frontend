@@ -145,7 +145,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
               </div> */}
               <div className="w-9 h-9 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30 border border-indigo-400/20 overflow-hidden">
                 <img
-                  src="/public/logo/logo.png"
+                  src="/logo/logo.png"
                   alt="LifePilot Logo"
                   className="w-full h-full object-contain p-1"
                 />
